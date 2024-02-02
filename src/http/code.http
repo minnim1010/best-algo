@@ -1,0 +1,43 @@
+### 1. 코드 조회
+GET http://localhost:8080/api/v1/code?problem=1&solver=aa
+
+### 1-1. 베스트 코드 조회
+GET http://localhost:8080/api/v1/code?problem=1&solver=aa&type=best
+
+### 2. 코드 작성
+POST http://localhost:8080/api/v1/code
+Content-Type: application/json
+
+{
+  "solver": "김문기",
+  "code": "codecode",
+  "password": "비밀번호"
+}
+
+### 3. 코드 수정
+PATCH http://localhost:8080/api/v1/code/1
+Content-Type: application/json
+
+{
+  "solver": "김문기",
+  "code": "codecode",
+  "password": "비밀번호"
+}
+
+### 4. 코드 삭제
+DELETE http://localhost:8080/api/v1/code/1
+Content-Type: application/json
+
+{
+  "solver": "김문기",
+  "password": "비밀번호"
+}
+
+### 5. 문제별 베스트 코드 변경
+POST http://localhost:8080/api/v1/code/best?problem=1
+Content-Type: application/json
+
+{
+  "solver": "김문기",
+  "password": "비밀번호"
+}

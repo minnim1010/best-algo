@@ -1,0 +1,15 @@
+### 1. 문제 리스트 조회
+GET http://localhost:8080/api/v1/problem
+
+### 2. 문제 solver 조회
+GET http://localhost:8080/api/v1/problem/1/solvers
+
+### 3. 문제 추가
+POST http://localhost:8080/api/v1/problem
+Content-Type: application/json
+
+{
+  "problemName": "문제 이름",
+  "date": "20240202",
+  "password": "asdfc9vuwernwmndfdsf"
+}
