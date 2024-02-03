@@ -5,12 +5,11 @@ import com.ssafy.bestalgo.problem.dto.request.ProblemCreateRequest;
 import com.ssafy.bestalgo.problem.dto.response.ProblemCreateResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemListResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemSolverListResponse;
-import com.ssafy.bestalgo.problem.dto.response.ProblemSolverListResponse.ProblemSolverResponse;
+import com.ssafy.bestalgo.problem.dto.response.ProblemSolverResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemSubmissionListResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemSubmissionResponse;
 import com.ssafy.bestalgo.problem.entity.Problem;
 import com.ssafy.bestalgo.problem.repository.ProblemRepository;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -37,12 +36,8 @@ public class ProblemService {
     }
 
     public ProblemSolverListResponse getSolverList(int problemId) {
-        // TODO: 2024/02/03 get solver list
-        List<ProblemSolverResponse> list = new ArrayList<>();
-        list.add(new ProblemSolverListResponse.ProblemSolverResponse());
-        ProblemSolverListResponse problemSolverListResponse = new ProblemSolverListResponse();
-        problemSolverListResponse.setSolvers(list);
-        return problemSolverListResponse;
+        List<ProblemSolverResponse> problemSolverResponseList = problemRepository.findSolverByProblem(problemId);
+        return new ProblemSolverListResponse(problemSolverResponseList);
     }
 
     @Transactional
