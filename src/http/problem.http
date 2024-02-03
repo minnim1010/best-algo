@@ -12,7 +12,7 @@ POST http://localhost:8080/api/v1/problems
 Content-Type: application/json
 
 {
-  "name": "문제1",
+  "name": "문제32342353453453453453543452342342343tiofh;oasueriowjqrnfsfasdfas",
   "date": "20240202",
-  "password": "1234"
+  "password": "qRp2#L9zF!oP5xY7sE8a"
 }

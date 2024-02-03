@@ -33,7 +33,7 @@ public class CodeService {
     }
 
     public CodeResponse getCode(int codeId) {
-        return codeRepository.findById(codeId)
+        return codeRepository.getResponseById(codeId)
                 .orElseThrow(DataNotFoundException::new);
     }
 
@@ -58,9 +58,7 @@ public class CodeService {
         // TODO: 2024/02/03 jpql로 리팩토링 예정
         Problem problem = problemRepository.findById(request.problem())
                 .orElseThrow(() -> new DataNotFoundException(request.problem() + "번에 해당하는 문제를 찾을 수 없습니다."));
-        Member member = memberRepository.findByName(request.solver())
-                .orElseThrow(() -> new DataNotFoundException(request.solver() + " 풀이자를 찾을 수 없습니다."));
-        Code code = codeRepository.findByProblemAndMemberAndIsDeletedFalse(problem, member)
+        Code code = codeRepository.findById(request.code())
                 .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
 
         if (problemRepository.existsByIdAndCodeType(problem.getId(), CodeType.get(type))) {

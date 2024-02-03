@@ -21,8 +21,8 @@ public interface CodeRepository extends JpaRepository<Code, Integer> {
             SELECT NEW com.ssafy.bestalgo.code.dto.response.CodeResponse(c.id, m.name, c.createdTime, c.content, c.type)
             FROM Code c
             JOIN c.member m
-            WHERE c.id = :codeId and c.isDeleted = false""")
-    Optional<CodeResponse> findById(int codeId);
+            WHERE c.id = :codeId""")
+    Optional<CodeResponse> getResponseById(int codeId);
 
     Optional<Code> findByProblemAndMember(Problem problem, Member member);
 

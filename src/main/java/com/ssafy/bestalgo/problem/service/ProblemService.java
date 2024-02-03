@@ -45,11 +45,10 @@ public class ProblemService {
                 .collect(Collectors.groupingBy(ProblemSubmission::date))
                 .entrySet().stream()
                 .map(entry ->
-                        Map.of(
-                                "date", entry.getKey(),
-                                "problems", entry.getValue().stream()
+                        Map.of("problems", entry.getValue().stream()
                                         .map(ProblemSubmission::toMap)
-                                        .toList()))
+                                        .toList(),
+                                "date", entry.getKey()))
                 .toList();
 
         return new ProblemListResponse(collect);

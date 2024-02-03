@@ -1,5 +1,5 @@
 ### 코드 상세 조회
-GET http://localhost:8080/api/v1/codes/4
+GET http://localhost:8080/api/v1/codes/5
 
 ### 코드 작성
 POST http://localhost:8080/api/v1/codes?problem=3
@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### 코드 수정
-PATCH http://localhost:8080/api/v1/codes/6
+PATCH http://localhost:8080/api/v1/codes/5
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ### 코드 삭제
-DELETE http://localhost:8080/api/v1/codes/5
+DELETE http://localhost:8080/api/v1/codes/6
 Content-Type: application/json
 
 {
@@ -36,7 +36,7 @@ Content-Type: application/json
 
 {
   "problem": 3,
-  "solver": "최광민",
+  "code": 5,
   "type": "best",
-  "password": "1&"
+  "password": "aP7mS3zX#2L8oQ9wE4y&"
 }
