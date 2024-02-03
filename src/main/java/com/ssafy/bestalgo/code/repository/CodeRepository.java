@@ -3,6 +3,8 @@ package com.ssafy.bestalgo.code.repository;
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.code.entity.Code;
 import com.ssafy.bestalgo.code.entity.CodeType;
+import com.ssafy.bestalgo.member.entity.Member;
+import com.ssafy.bestalgo.problem.entity.Problem;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +24,6 @@ public interface CodeRepository extends JpaRepository<Code, Integer> {
             JOIN c.member m
             WHERE c.problem.id = :problemId and c.type = :type and c.isDeleted = false""")
     Optional<CodeResponse> findByProblemIdAndType(int problemId, CodeType type);
+
+    Optional<Code> findByProblemAndMember(Problem problem, Member member);
 }

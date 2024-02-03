@@ -23,7 +23,7 @@ public enum CodeType {
     }
 
     public static CodeType get(String name) {
-        return convertor.get(name);
+        return convertor.getOrDefault(name, GOOD);
     }
 
     public String getName() {

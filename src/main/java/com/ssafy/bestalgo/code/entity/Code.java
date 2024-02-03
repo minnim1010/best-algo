@@ -59,47 +59,27 @@ public class Code extends BaseTimeEntity {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Member getMember() {
         return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
     }
 
     public Problem getProblem() {
         return problem;
     }
 
-    public void setProblem(Problem problem) {
-        this.problem = problem;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public CodeType getType() {
         return type;
     }
 
-    public void setType(CodeType type) {
+    public void updateType(@NotNull CodeType type) {
         this.type = type;
     }
 
     public boolean getDeleted() {
         return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 }
