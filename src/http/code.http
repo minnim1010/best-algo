@@ -1,5 +1,5 @@
 ### 코드 상세 조회
-GET http://localhost:8080/api/v1/codes/5
+GET http://localhost:8080/api/v1/codes/1
 
 ### 코드 작성
 POST http://localhost:8080/api/v1/codes?problem=4
@@ -35,8 +35,8 @@ POST http://localhost:8080/api/v1/codes/type
 Content-Type: application/json
 
 {
-  "problem": 4,
-  "code": 5,
+  "problem": 1,
+  "code": 1,
   "type": "best",
   "password": "aP7mS3zX#2L8oQ9wE4y&"
 }
