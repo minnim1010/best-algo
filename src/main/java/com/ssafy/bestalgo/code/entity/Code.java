@@ -21,9 +21,11 @@ public class Code extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Problem problem;
 

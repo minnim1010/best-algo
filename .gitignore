@@ -176,6 +176,7 @@ gradle-app.setting
 
 # Custom
 src/main/resources/privacy.yml
+src/test/resources/privacy.yml
 bestalgo.iml
 .idea/
 log/
