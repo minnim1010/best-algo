@@ -1,10 +1,10 @@
-INSERT INTO member
+INSERT INTO member (id, name, password)
 VALUES (1, '조재혁', '1234'),
        (2, '김문기', '1234'),
        (3, '조현아', '1234'),
        (4, '최광민', '1234');
 
-INSERT INTO problem
+INSERT INTO problem (id, name, category)
 VALUES (1, '실습004_SWEA_1208_Flatten', '20240202'),
        (2, '실습011_JES_12891_DNA비밀번호', '20240202'),
        (3, '실습014_SWEA_1225_암호생성기', '20240202');
