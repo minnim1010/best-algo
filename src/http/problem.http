@@ -1,10 +1,7 @@
-### 1. 문제 리스트 조회
+### 문제 리스트 조회
 GET http://localhost:8080/api/v1/problem
 
-### 2. 풀이 코드 목록 조회
-GET http://localhost:8080/api/v1/problem/2/code
-
-### 3. 문제 추가
+### 문제 추가
 POST http://localhost:8080/api/v1/problem
 Content-Type: application/json
 

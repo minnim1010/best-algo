@@ -5,8 +5,6 @@ import com.ssafy.bestalgo.problem.dto.persist.ProblemSubmission;
 import com.ssafy.bestalgo.problem.dto.request.ProblemCreateRequest;
 import com.ssafy.bestalgo.problem.dto.response.ProblemCreateResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemListResponse;
-import com.ssafy.bestalgo.problem.dto.response.ProblemSolvedCodeResponse;
-import com.ssafy.bestalgo.problem.dto.response.ProblemSolverListResponse;
 import com.ssafy.bestalgo.problem.entity.Problem;
 import com.ssafy.bestalgo.problem.repository.ProblemRepository;
 import java.util.List;
@@ -44,12 +42,6 @@ public class ProblemService {
                 .toList();
 
         return new ProblemListResponse(collect);
-    }
-
-    public ProblemSolverListResponse getSolverList(int problemId) {
-        List<ProblemSolvedCodeResponse> problemSolvedCodeResponseList = problemRepository.findSolverByProblem(
-                problemId);
-        return new ProblemSolverListResponse(problemSolvedCodeResponseList);
     }
 
     @Transactional

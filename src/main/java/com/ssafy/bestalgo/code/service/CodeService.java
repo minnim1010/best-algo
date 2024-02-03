@@ -13,8 +13,11 @@ import com.ssafy.bestalgo.common.exception.type.DataNotFoundException;
 import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
 import com.ssafy.bestalgo.member.entity.Member;
 import com.ssafy.bestalgo.member.repository.MemberRepository;
+import com.ssafy.bestalgo.problem.dto.response.CodeListResponse;
+import com.ssafy.bestalgo.problem.dto.response.ProblemSolvedCodeListResponse;
 import com.ssafy.bestalgo.problem.entity.Problem;
 import com.ssafy.bestalgo.problem.repository.ProblemRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +33,11 @@ public class CodeService {
         this.codeRepository = codeRepository;
         this.problemRepository = problemRepository;
         this.memberRepository = memberRepository;
+    }
+
+    public ProblemSolvedCodeListResponse getCodeListByProblem(int problemId) {
+        List<CodeListResponse> codeListResponse = codeRepository.findAllByProblem(problemId);
+        return new ProblemSolvedCodeListResponse(codeListResponse);
     }
 
     public CodeResponse getCode(CodeSearchRequest request) {

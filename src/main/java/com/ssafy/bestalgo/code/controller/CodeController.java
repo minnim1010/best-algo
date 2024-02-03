@@ -3,16 +3,15 @@ package com.ssafy.bestalgo.code.controller;
 import com.ssafy.bestalgo.code.dto.request.BestCodeUpdateRequest;
 import com.ssafy.bestalgo.code.dto.request.CodeDeleteRequest;
 import com.ssafy.bestalgo.code.dto.request.CodeRequest;
-import com.ssafy.bestalgo.code.dto.request.CodeSearchRequest;
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.code.service.CodeService;
 import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
+import com.ssafy.bestalgo.problem.dto.response.ProblemSolvedCodeListResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,9 +37,15 @@ public class CodeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CodeResponse getCode(@ModelAttribute("codeSearchRequest") CodeSearchRequest request) {
-        return codeService.getCode(request);
+    public ProblemSolvedCodeListResponse getSolverList(@RequestParam("problem") int problemId) {
+        return codeService.getCodeListByProblem(problemId);
     }
+
+//    @GetMapping
+//    @ResponseStatus(HttpStatus.OK)
+//    public CodeResponse getCode(@ModelAttribute("codeSearchRequest") CodeSearchRequest request) {
+//        return codeService.getCode(request);
+//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

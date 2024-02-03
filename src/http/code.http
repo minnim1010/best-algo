@@ -1,10 +1,16 @@
-### 1. 코드 조회
-GET http://localhost:8080/api/v1/code?problem=3&solver=김문기
+### 문제별 코드 목록 조회
+GET http://localhost:8080/api/v1/code?problem=2
 
-### 1-1. 베스트 코드 조회
-GET http://localhost:8080/api/v1/code?problem=1&type=best
+### 코드 상세 조회
+GET http://localhost:8080/api/v1/code/1
 
-### 2. 코드 작성
+### 문제의 베스트 코드 조회
+GET http://localhost:8080/api/v1/code/best?problem=1
+
+### 문제의 참신한 코드 조회
+GET http://localhost:8080/api/v1/code/novel?problem=1
+
+### 코드 작성
 POST http://localhost:8080/api/v1/code?problem=3
 Content-Type: application/json
 
@@ -14,7 +20,7 @@ Content-Type: application/json
   "password": "비밀번호"
 }
 
-### 3. 코드 수정
+### 코드 수정
 PATCH http://localhost:8080/api/v1/code/6
 Content-Type: application/json
 
@@ -24,7 +30,7 @@ Content-Type: application/json
   "password": "비밀번호"
 }
 
-### 4. 코드 삭제
+### 코드 삭제
 DELETE http://localhost:8080/api/v1/code/5
 Content-Type: application/json
 
@@ -33,7 +39,7 @@ Content-Type: application/json
   "password": "비밀번호"
 }
 
-### 5. 문제별 베스트 코드 변경
+### 문제별 코드 타입 변경
 POST http://localhost:8080/api/v1/code/type
 Content-Type: application/json
 

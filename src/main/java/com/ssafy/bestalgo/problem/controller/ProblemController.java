@@ -4,13 +4,11 @@ import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
 import com.ssafy.bestalgo.problem.dto.request.ProblemCreateRequest;
 import com.ssafy.bestalgo.problem.dto.response.ProblemCreateResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemListResponse;
-import com.ssafy.bestalgo.problem.dto.response.ProblemSolverListResponse;
 import com.ssafy.bestalgo.problem.service.ProblemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +31,6 @@ public class ProblemController {
     @ResponseStatus(HttpStatus.OK)
     public ProblemListResponse getProblemList(){
         return problemService.getProblemList();
-    }
-
-    @GetMapping("/{id}/code")
-    @ResponseStatus(HttpStatus.OK)
-    public ProblemSolverListResponse getSolverList(@PathVariable int id) {
-        return problemService.getSolverList(id);
     }
 
     @PostMapping
