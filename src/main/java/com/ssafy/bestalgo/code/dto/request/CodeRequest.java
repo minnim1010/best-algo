@@ -1,40 +1,9 @@
 package com.ssafy.bestalgo.code.dto.request;
 
-public class CodeRequest {
-    private String solver;
-    private String code;
-    private String password;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-    public String getSolver() {
-        return solver;
-    }
-
-    public void setSolver(String solver) {
-        this.solver = solver;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "CodeRequest{" +
-                "solver='" + solver + '\'' +
-                ", code='" + code + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+public record CodeRequest(@Size(min = 1, max = 10) @NotBlank String solver,
+                          @Size(min = 1, max = 20000) @NotBlank String code,
+                          @Size(min = 1, max = 10) @NotBlank String password) {
 }

@@ -48,9 +48,14 @@ public class CodeService {
     }
 
     @Transactional
-    public CodeResponse createCode(CodeRequest request) {
-        // TODO: 2024/02/02 create code
-        return new CodeResponse(0, null, null, null, null);
+    public CodeResponse createCode(int problemId, CodeRequest request) {
+        Member member = memberRepository.save(Member.create(request.solver(), request.password()));
+        Problem problem = problemRepository.findById(problemId)
+                .orElseThrow(() -> new DataNotFoundException(problemId + "번에 해당하는 문제가 존재하지 않습니다."));
+
+        Code code = codeRepository.save(Code.create(member, problem, request.code(), CodeType.GOOD));
+        return new CodeResponse(code.getId(), member.getName(), code.getCreatedTime(),
+                code.getContent(), code.getType());
     }
 
     @Transactional
@@ -59,11 +64,11 @@ public class CodeService {
             throw new InvalidRequestException(request.type() + " 코드 타입은 존재하지 않습니다.");
         }
 
-        // TODO: 2024/02/03 jpql로 리팩토링 예정 
+        // TODO: 2024/02/03 jpql로 리팩토링 예정
         Problem problem = problemRepository.findById(request.problem())
-                .orElseThrow(() -> new DataNotFoundException(request.problem() + " 해당 문제가 존재하지 않습니다."));
+                .orElseThrow(() -> new DataNotFoundException(request.problem() + "번에 해당하는 문제를 찾을 수 없습니다."));
         Member member = memberRepository.findByName(request.solver())
-                .orElseThrow(() -> new DataNotFoundException(request.solver() + " 해당 풀이자가 존재하지 않습니다."));
+                .orElseThrow(() -> new DataNotFoundException(request.solver() + " 풀이자를 찾을 수 없습니다."));
         Code code = codeRepository.findByProblemAndMember(problem, member)
                 .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
 

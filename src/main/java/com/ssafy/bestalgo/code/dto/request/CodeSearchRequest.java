@@ -1,4 +1,9 @@
 package com.ssafy.bestalgo.code.dto.request;
 
-public record CodeSearchRequest(int problem, String solver, String type) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record CodeSearchRequest(int problem,
+                                @Size(min = 1, max = 10) @NotBlank String solver,
+                                @Size(min = 1, max = 10) @NotBlank String type) {
 }
