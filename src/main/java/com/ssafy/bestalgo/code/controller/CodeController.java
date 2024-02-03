@@ -3,11 +3,13 @@ package com.ssafy.bestalgo.code.controller;
 import com.ssafy.bestalgo.code.dto.request.BestCodeUpdateRequest;
 import com.ssafy.bestalgo.code.dto.request.CodeDeleteRequest;
 import com.ssafy.bestalgo.code.dto.request.CodeRequest;
+import com.ssafy.bestalgo.code.dto.request.CodeSearchRequest;
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +25,7 @@ public class CodeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CodeResponse getCode(@RequestParam("problem") int problemId,
-                                @RequestParam String solver,
-                                @RequestParam(required = false) String type) {
+    public CodeResponse getCode(@ModelAttribute("codeSearchRequest") CodeSearchRequest codeSearchRequest) {
         // TODO: 2024/02/02 search code
         return new CodeResponse();
     }
