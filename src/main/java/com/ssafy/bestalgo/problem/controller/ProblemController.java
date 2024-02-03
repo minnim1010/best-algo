@@ -35,7 +35,7 @@ public class ProblemController {
         return problemService.getProblemList();
     }
 
-    @GetMapping("/{id}/solvers")
+    @GetMapping("/{id}/code")
     @ResponseStatus(HttpStatus.OK)
     public ProblemSolverListResponse getSolverList(@PathVariable int id) {
         return problemService.getSolverList(id);
@@ -44,7 +44,7 @@ public class ProblemController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProblemCreateResponse createProblem(@RequestBody @Valid ProblemCreateRequest problemCreateRequest) {
-        if (!adminPassword.equals(problemCreateRequest.getPassword())) {
+        if (!adminPassword.equals(problemCreateRequest.password())) {
             throw new AuthenticationFailException();
         }
 

@@ -1,40 +1,9 @@
 package com.ssafy.bestalgo.problem.dto.request;
 
-public class ProblemCreateRequest {
-    private String name;
-    private String date;
-    private String password;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "ProblemCreateRequest{" +
-                "name='" + name + '\'' +
-                ", date='" + date + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+public record ProblemCreateRequest(@Size(min = 1, max = 50) @NotBlank String name,
+                                   @Size(min = 1, max = 30) @NotBlank String date,
+                                   @Size(min = 1, max = 30) @NotBlank String password) {
 }

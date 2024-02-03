@@ -5,8 +5,8 @@ import com.ssafy.bestalgo.problem.dto.persist.ProblemSubmission;
 import com.ssafy.bestalgo.problem.dto.request.ProblemCreateRequest;
 import com.ssafy.bestalgo.problem.dto.response.ProblemCreateResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemListResponse;
+import com.ssafy.bestalgo.problem.dto.response.ProblemSolvedCodeResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemSolverListResponse;
-import com.ssafy.bestalgo.problem.dto.response.ProblemSolverResponse;
 import com.ssafy.bestalgo.problem.entity.Problem;
 import com.ssafy.bestalgo.problem.repository.ProblemRepository;
 import java.util.List;
@@ -40,26 +40,22 @@ public class ProblemService {
                                 "date", entry.getKey(),
                                 "problems", entry.getValue().stream()
                                         .map(ProblemSubmission::toMap)
-                                        .toList()
-                        )
-                )
+                                        .toList()))
                 .toList();
 
         return new ProblemListResponse(collect);
     }
 
     public ProblemSolverListResponse getSolverList(int problemId) {
-        List<ProblemSolverResponse> problemSolverResponseList = problemRepository.findSolverByProblem(problemId);
-        return new ProblemSolverListResponse(problemSolverResponseList);
+        List<ProblemSolvedCodeResponse> problemSolvedCodeResponseList = problemRepository.findSolverByProblem(
+                problemId);
+        return new ProblemSolverListResponse(problemSolvedCodeResponseList);
     }
 
     @Transactional
-    public ProblemCreateResponse createProblem(ProblemCreateRequest problemCreateRequest) {
-        Problem problem = Problem.create(problemCreateRequest.getName(), problemCreateRequest.getDate());
-
-        // TODO: 2024/02/03 problemName 중복된 경우 if문 예외 처리 필요
+    public ProblemCreateResponse createProblem(ProblemCreateRequest request) {
         try {
-            Problem save = problemRepository.save(problem);
+            Problem save = problemRepository.save(Problem.create(request.name(), request.date()));
             return new ProblemCreateResponse(save.getId(), save.getName(), save.getCategory());
         } catch (DataIntegrityViolationException e) {
             throw new DuplicatedDataException();
