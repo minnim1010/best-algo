@@ -6,6 +6,7 @@ import com.ssafy.bestalgo.code.dto.request.CodeRequest;
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.code.service.CodeService;
 import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
+import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,10 @@ public class CodeController {
         String password = request.password();
         if (!adminPassword.equals(password) && !algorithmManagerPassword.equals(password)) {
             throw new AuthenticationFailException();
+        }
+
+        if (!request.type().equals("best") && !request.type().equals("novel")) {
+            throw new InvalidRequestException();
         }
 
         codeService.updateCodeType(request);

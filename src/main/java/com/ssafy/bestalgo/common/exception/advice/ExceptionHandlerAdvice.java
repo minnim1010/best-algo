@@ -44,9 +44,9 @@ public class ExceptionHandlerAdvice {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ExceptionResponse> handleValidationException(MethodArgumentNotValidException e) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors()
+        e.getBindingResult().getAllErrors()
                 .forEach(error -> {
                     String fieldName = ((FieldError) error).getField();
                     String errorMessage = error.getDefaultMessage();
@@ -56,9 +56,9 @@ public class ExceptionHandlerAdvice {
                 errors.toString()), HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ExceptionResponse> handleException(Exception e) {
-//        return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()),
-//                HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponse> handleException(Exception e) {
+        return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

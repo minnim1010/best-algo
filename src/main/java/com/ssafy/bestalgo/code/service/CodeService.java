@@ -43,7 +43,7 @@ public class CodeService {
         Problem problem = problemRepository.findById(problemId)
                 .orElseThrow(() -> new DataNotFoundException(problemId + "번에 해당하는 문제가 존재하지 않습니다."));
 
-        Code code = codeRepository.save(Code.create(member, problem, request.code(), CodeType.GOOD));
+        Code code = codeRepository.save(Code.create(member, problem, request.content(), CodeType.GOOD));
         return new CodeResponse(code.getId(), member.getName(), code.getCreatedTime(),
                 code.getContent(), code.getType());
     }
@@ -56,12 +56,13 @@ public class CodeService {
         }
 
         // TODO: 2024/02/03 jpql로 리팩토링 예정
-        Problem problem = problemRepository.findById(request.problem())
-                .orElseThrow(() -> new DataNotFoundException(request.problem() + "번에 해당하는 문제를 찾을 수 없습니다."));
-        Code code = codeRepository.findById(request.code())
+        if (!problemRepository.existsById(request.problem())) {
+            throw new DataNotFoundException(request.problem() + "번에 해당하는 문제를 찾을 수 없습니다.");
+        }
+        Code code = codeRepository.findByIdAndIsDeletedFalse(request.code())
                 .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
 
-        if (problemRepository.existsByIdAndCodeType(problem.getId(), CodeType.get(type))) {
+        if (codeRepository.existsByIdAndCodeType(request.problem(), CodeType.get(type))) {
             throw new DuplicatedDataException(type + " 타입의 코드가 이미 존재합니다.");
         }
 
@@ -81,7 +82,7 @@ public class CodeService {
 
         Code code = codeRepository.findByIdAndIsDeletedFalse(codeId)
                 .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
-        code.updateContent(request.code());
+        code.updateContent(request.content());
 
         return new CodeResponse(code.getId(), request.solver(), code.getCreatedTime(),
                 code.getContent(), code.getType());
@@ -90,7 +91,7 @@ public class CodeService {
     @Transactional
     public void deleteCode(int codeId, CodeDeleteRequest request) {
         if (!codeRepository.existsByIdAndIsDeletedFalse(codeId)) {
-            throw new DataNotFoundException("해당 코드를 찾을 수 없습니다.");
+            throw new DataNotFoundException();
         }
 
         if (!codeRepository.existsByIdAndSolverNameAndSolverPassword(
@@ -99,7 +100,7 @@ public class CodeService {
         }
 
         Code code = codeRepository.findByIdAndIsDeletedFalse(codeId)
-                .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
+                .orElseThrow(DataNotFoundException::new);
         code.setDeleted();
     }
 }

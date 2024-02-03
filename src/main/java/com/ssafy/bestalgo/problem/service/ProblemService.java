@@ -2,6 +2,7 @@ package com.ssafy.bestalgo.problem.service;
 
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.code.entity.CodeType;
+import com.ssafy.bestalgo.code.repository.CodeRepository;
 import com.ssafy.bestalgo.common.exception.type.DataNotFoundException;
 import com.ssafy.bestalgo.common.exception.type.DuplicatedDataException;
 import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
@@ -24,9 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class ProblemService {
     private final ProblemRepository problemRepository;
+    private final CodeRepository codeRepository;
 
-    public ProblemService(ProblemRepository problemRepository) {
+    public ProblemService(ProblemRepository problemRepository, CodeRepository codeRepository) {
         this.problemRepository = problemRepository;
+        this.codeRepository = codeRepository;
     }
 
     public ProblemListResponse getProblemList() {
@@ -68,7 +71,7 @@ public class ProblemService {
         if (!CodeType.exists(type)) {
             throw new InvalidRequestException(type + " 코드 타입은 존재하지 않습니다.");
         }
-        return problemRepository.findByIdAndCodeType(problemId, CodeType.get(type))
+        return codeRepository.findByIdAndCodeType(problemId, CodeType.get(type))
                 .orElseThrow(DataNotFoundException::new);
     }
 }

@@ -2,12 +2,12 @@
 GET http://localhost:8080/api/v1/codes/5
 
 ### 코드 작성
-POST http://localhost:8080/api/v1/codes?problem=3
+POST http://localhost:8080/api/v1/codes?problem=4
 Content-Type: application/json
 
 {
   "solver": "김문기",
-  "code": "codecode",
+  "content": "codecode!",
   "password": "비밀번호"
 }
 
@@ -17,12 +17,12 @@ Content-Type: application/json
 
 {
   "solver": "김문기",
-  "code": "!!!",
+  "content": "code!",
   "password": "비밀번호"
 }
 
 ### 코드 삭제
-DELETE http://localhost:8080/api/v1/codes/6
+DELETE http://localhost:8080/api/v1/codes/5
 Content-Type: application/json
 
 {
@@ -35,7 +35,7 @@ POST http://localhost:8080/api/v1/codes/type
 Content-Type: application/json
 
 {
-  "problem": 3,
+  "problem": 4,
   "code": 5,
   "type": "best",
   "password": "aP7mS3zX#2L8oQ9wE4y&"
