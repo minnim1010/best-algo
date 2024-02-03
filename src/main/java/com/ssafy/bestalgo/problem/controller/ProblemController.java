@@ -2,6 +2,7 @@ package com.ssafy.bestalgo.problem.controller;
 
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
+import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
 import com.ssafy.bestalgo.problem.dto.request.ProblemCreateRequest;
 import com.ssafy.bestalgo.problem.dto.response.ProblemCreateResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemListResponse;
@@ -46,6 +47,10 @@ public class ProblemController {
     @ResponseStatus(HttpStatus.OK)
     public CodeResponse getCodeByType(@PathVariable("id") int problemId,
                                       @PathVariable("type") String type) {
+        if (!type.equals("best") && !type.equals("novel")) {
+            throw new InvalidRequestException();
+        }
+
         return problemService.getCodeByType(problemId, type);
     }
 

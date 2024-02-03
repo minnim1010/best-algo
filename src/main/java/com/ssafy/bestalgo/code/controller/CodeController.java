@@ -56,7 +56,8 @@ public class CodeController {
             throw new AuthenticationFailException();
         }
 
-        if (!request.type().equals("best") && !request.type().equals("novel")) {
+        String type = request.type();
+        if (!type.equals("best") && !type.equals("novel")) {
             throw new InvalidRequestException();
         }
 
