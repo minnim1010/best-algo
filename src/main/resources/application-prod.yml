@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  file:
+    path: ${user.dir}/log
+    name: ${user.dir}/log/bestalgo
+  level:
+    root: error
