@@ -3,7 +3,6 @@ package com.ssafy.bestalgo.code.service;
 import com.ssafy.bestalgo.code.dto.request.BestCodeUpdateRequest;
 import com.ssafy.bestalgo.code.dto.request.CodeDeleteRequest;
 import com.ssafy.bestalgo.code.dto.request.CodeRequest;
-import com.ssafy.bestalgo.code.dto.request.CodeSearchRequest;
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.code.entity.Code;
 import com.ssafy.bestalgo.code.entity.CodeType;
@@ -13,11 +12,8 @@ import com.ssafy.bestalgo.common.exception.type.DataNotFoundException;
 import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
 import com.ssafy.bestalgo.member.entity.Member;
 import com.ssafy.bestalgo.member.repository.MemberRepository;
-import com.ssafy.bestalgo.problem.dto.response.CodeListResponse;
-import com.ssafy.bestalgo.problem.dto.response.ProblemSolvedCodeListResponse;
 import com.ssafy.bestalgo.problem.entity.Problem;
 import com.ssafy.bestalgo.problem.repository.ProblemRepository;
-import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,29 +31,16 @@ public class CodeService {
         this.memberRepository = memberRepository;
     }
 
-    public ProblemSolvedCodeListResponse getCodeListByProblem(int problemId) {
-        List<CodeListResponse> codeListResponse = codeRepository.findAllByProblem(problemId);
-        return new ProblemSolvedCodeListResponse(codeListResponse);
-    }
-
     public CodeResponse getCode(int codeId) {
         return codeRepository.findById(codeId)
                 .orElseThrow(DataNotFoundException::new);
     }
 
-    public CodeResponse getCode(CodeSearchRequest request) {
-        if (request.type() != null) {
-            return getCodeByType(request);
+    public CodeResponse getCodeByType(String type, int problemId) {
+        if (!CodeType.exists(type)) {
+            throw new InvalidRequestException(type + " 코드 타입은 존재하지 않습니다.");
         }
-        return codeRepository.findByProblemIdAndSolverName(request.problem(), request.solver())
-                .orElseThrow(DataNotFoundException::new);
-    }
-
-    private CodeResponse getCodeByType(CodeSearchRequest request) {
-        if (!CodeType.exists(request.type())) {
-            throw new InvalidRequestException(request.type() + " 코드 타입은 존재하지 않습니다.");
-        }
-        return codeRepository.findByProblemIdAndType(request.problem(), CodeType.get(request.type()))
+        return codeRepository.findByProblemIdAndType(problemId, CodeType.get(type))
                 .orElseThrow(DataNotFoundException::new);
     }
 

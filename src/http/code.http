@@ -1,17 +1,8 @@
-### 문제별 코드 목록 조회
-GET http://localhost:8080/api/v1/code?problem=3
-
 ### 코드 상세 조회
-GET http://localhost:8080/api/v1/code/4
-
-### 문제의 베스트 코드 조회
-GET http://localhost:8080/api/v1/code/best?problem=1
-
-### 문제의 참신한 코드 조회
-GET http://localhost:8080/api/v1/code/novel?problem=1
+GET http://localhost:8080/api/v1/codes/4
 
 ### 코드 작성
-POST http://localhost:8080/api/v1/code?problem=3
+POST http://localhost:8080/api/v1/codes?problem=3
 Content-Type: application/json
 
 {
@@ -21,7 +12,7 @@ Content-Type: application/json
 }
 
 ### 코드 수정
-PATCH http://localhost:8080/api/v1/code/6
+PATCH http://localhost:8080/api/v1/codes/6
 Content-Type: application/json
 
 {
@@ -31,7 +22,7 @@ Content-Type: application/json
 }
 
 ### 코드 삭제
-DELETE http://localhost:8080/api/v1/code/5
+DELETE http://localhost:8080/api/v1/codes/5
 Content-Type: application/json
 
 {
@@ -40,7 +31,7 @@ Content-Type: application/json
 }
 
 ### 문제별 코드 타입 변경
-POST http://localhost:8080/api/v1/code/type
+POST http://localhost:8080/api/v1/codes/type
 Content-Type: application/json
 
 {

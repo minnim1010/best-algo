@@ -1,8 +1,14 @@
 ### 문제 리스트 조회
-GET http://localhost:8080/api/v1/problem
+GET http://localhost:8080/api/v1/problems
+
+### 문제별 코드 목록 조회
+GET http://localhost:8080/api/v1/problems/1/codes
+
+### 문제의 타입별 코드 조회
+GET http://localhost:8080/api/v1/problems/1/best
 
 ### 문제 추가
-POST http://localhost:8080/api/v1/problem
+POST http://localhost:8080/api/v1/problems
 Content-Type: application/json
 
 {

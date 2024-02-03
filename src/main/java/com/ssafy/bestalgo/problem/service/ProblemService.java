@@ -1,10 +1,13 @@
 package com.ssafy.bestalgo.problem.service;
 
+import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.common.exception.type.DuplicatedDataException;
 import com.ssafy.bestalgo.problem.dto.persist.ProblemSubmission;
 import com.ssafy.bestalgo.problem.dto.request.ProblemCreateRequest;
+import com.ssafy.bestalgo.problem.dto.response.CodeListResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemCreateResponse;
 import com.ssafy.bestalgo.problem.dto.response.ProblemListResponse;
+import com.ssafy.bestalgo.problem.dto.response.ProblemSolvedCodeListResponse;
 import com.ssafy.bestalgo.problem.entity.Problem;
 import com.ssafy.bestalgo.problem.repository.ProblemRepository;
 import java.util.List;
@@ -27,6 +30,11 @@ public class ProblemService {
         List<ProblemSubmission> problemSubmissions = problemRepository.findAllWithSubmissionCount();
 
         return convertProblemListResponse(problemSubmissions);
+    }
+
+    public ProblemSolvedCodeListResponse getCodeListByProblem(int problemId) {
+        List<CodeListResponse> codeListResponse = problemRepository.findCodesById(problemId);
+        return new ProblemSolvedCodeListResponse(codeListResponse);
     }
 
     private ProblemListResponse convertProblemListResponse(List<ProblemSubmission> problemSubmissions) {
@@ -52,5 +60,9 @@ public class ProblemService {
         } catch (DataIntegrityViolationException e) {
             throw new DuplicatedDataException();
         }
+    }
+
+    public CodeResponse getCodeByType(int problemId, String type) {
+        return null;
     }
 }

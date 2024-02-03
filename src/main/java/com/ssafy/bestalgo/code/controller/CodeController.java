@@ -6,7 +6,6 @@ import com.ssafy.bestalgo.code.dto.request.CodeRequest;
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.code.service.CodeService;
 import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
-import com.ssafy.bestalgo.problem.dto.response.ProblemSolvedCodeListResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/code")
+@RequestMapping("/api/v1/codes")
 public class CodeController {
     private final CodeService codeService;
 
@@ -33,12 +32,6 @@ public class CodeController {
 
     public CodeController(CodeService codeService) {
         this.codeService = codeService;
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public ProblemSolvedCodeListResponse getSolverList(@RequestParam("problem") int problemId) {
-        return codeService.getCodeListByProblem(problemId);
     }
 
     @GetMapping("/{id}")
