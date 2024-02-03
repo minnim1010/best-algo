@@ -56,6 +56,7 @@ public class CodeController {
         if (!adminPassword.equals(password) && !algorithmManagerPassword.equals(password)) {
             throw new AuthenticationFailException();
         }
+
         codeService.updateCodeType(request);
     }
 

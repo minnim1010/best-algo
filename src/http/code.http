@@ -1,11 +1,11 @@
 ### 1. 코드 조회
-GET http://localhost:8080/api/v1/code?problem=1&solver=조재혁
+GET http://localhost:8080/api/v1/code?problem=3&solver=김문기
 
 ### 1-1. 베스트 코드 조회
 GET http://localhost:8080/api/v1/code?problem=1&type=best
 
 ### 2. 코드 작성
-POST http://localhost:8080/api/v1/code?problem=5
+POST http://localhost:8080/api/v1/code?problem=3
 Content-Type: application/json
 
 {
@@ -15,12 +15,12 @@ Content-Type: application/json
 }
 
 ### 3. 코드 수정
-PATCH http://localhost:8080/api/v1/code/1
+PATCH http://localhost:8080/api/v1/code/6
 Content-Type: application/json
 
 {
   "solver": "김문기",
-  "code": "codecode",
+  "code": "!!!",
   "password": "비밀번호"
 }
 

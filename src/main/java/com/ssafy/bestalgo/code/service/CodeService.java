@@ -8,6 +8,7 @@ import com.ssafy.bestalgo.code.dto.response.CodeResponse;
 import com.ssafy.bestalgo.code.entity.Code;
 import com.ssafy.bestalgo.code.entity.CodeType;
 import com.ssafy.bestalgo.code.repository.CodeRepository;
+import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
 import com.ssafy.bestalgo.common.exception.type.DataNotFoundException;
 import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
 import com.ssafy.bestalgo.member.entity.Member;
@@ -81,8 +82,21 @@ public class CodeService {
 
     @Transactional
     public CodeResponse updateCode(int codeId, CodeRequest request) {
-        // TODO: 2024/02/02 update code
-        return new CodeResponse(0, (String) null, null, null, null);
+        if (!codeRepository.existsById(codeId)) {
+            throw new DataNotFoundException("해당 코드를 찾을 수 없습니다.");
+        }
+
+        if (!codeRepository.existsByIdAndSolverNameAndSolverPassword(
+                codeId, request.solver(), request.password())) {
+            throw new AuthenticationFailException();
+        }
+
+        Code code = codeRepository.findById(codeId)
+                .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
+        code.updateContent(request.code());
+
+        return new CodeResponse(code.getId(), request.solver(), code.getCreatedTime(),
+                code.getContent(), code.getType());
     }
 
     @Transactional

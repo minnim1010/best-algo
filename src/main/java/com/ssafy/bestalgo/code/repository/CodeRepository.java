@@ -26,4 +26,13 @@ public interface CodeRepository extends JpaRepository<Code, Integer> {
     Optional<CodeResponse> findByProblemIdAndType(int problemId, CodeType type);
 
     Optional<Code> findByProblemAndMember(Problem problem, Member member);
+
+    @Query("""
+            SELECT EXISTS (
+                SELECT 1
+                FROM Code c
+                JOIN c.member m
+                WHERE c.id = :codeId and c.isDeleted = false and m.name = :solverName AND m.password = :solverPassword
+            ) AS result""")
+    boolean existsByIdAndSolverNameAndSolverPassword(int codeId, String solverName, String solverPassword);
 }
