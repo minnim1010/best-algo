@@ -2,22 +2,7 @@ package com.ssafy.bestalgo.problem.dto.response;
 
 import java.time.LocalDateTime;
 
-public class ProblemSolverResponse {
-    private String name;
-    private LocalDateTime submitAt;
-
-    public ProblemSolverResponse(String name, LocalDateTime submitAt) {
-        this.name = name;
-        this.submitAt = submitAt;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDateTime getSubmitAt() {
-        return submitAt;
-    }
+public record ProblemSolverResponse(String name, LocalDateTime submitAt) {
 
     @Override
     public String toString() {

@@ -2,7 +2,7 @@
 GET http://localhost:8080/api/v1/problem
 
 ### 2. 문제 solver 조회
-GET http://localhost:8080/api/v1/problem/3/solvers
+GET http://localhost:8080/api/v1/problem/5/solvers
 
 ### 3. 문제 추가
 POST http://localhost:8080/api/v1/problem
@@ -11,5 +11,5 @@ Content-Type: application/json
 {
   "name": "문제1",
   "date": "20240202",
-  "password": "12425dsd"
+  "password": "1234"
 }

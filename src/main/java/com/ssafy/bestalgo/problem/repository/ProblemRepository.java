@@ -1,5 +1,6 @@
 package com.ssafy.bestalgo.problem.repository;
 
+import com.ssafy.bestalgo.problem.dto.persist.ProblemSubmission;
 import com.ssafy.bestalgo.problem.dto.response.ProblemSolverResponse;
 import com.ssafy.bestalgo.problem.entity.Problem;
 import java.util.List;
@@ -16,4 +17,13 @@ public interface ProblemRepository extends JpaRepository<Problem, Integer> {
             JOIN c.member m
             WHERE c.problem.id = :problemId""")
     List<ProblemSolverResponse> findSolverByProblem(@Param("problemId") Integer problemId);
+
+    @Query("""
+            SELECT NEW com.ssafy.bestalgo.problem.dto.persist.ProblemSubmission(
+            p.id, p.name, COUNT(c.id), p.category)
+            FROM Code c
+            JOIN c.problem p
+            GROUP BY p.category, p.name, p.id"""
+    )
+    List<ProblemSubmission> findAllWithSubmissionCount();
 }

@@ -1,15 +1,7 @@
 package com.ssafy.bestalgo.problem.dto.response;
 
 import java.util.List;
+import java.util.Map;
 
-public class ProblemListResponse {
-    private List<ProblemSubmissionListResponse> items;
-
-    public List<ProblemSubmissionListResponse> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ProblemSubmissionListResponse> items) {
-        this.items = items;
-    }
+public record ProblemListResponse(List<Map<String, Object>> items) {
 }
