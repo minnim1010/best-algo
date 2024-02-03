@@ -2,7 +2,9 @@ package com.ssafy.bestalgo.common.exception.advice;
 
 import com.ssafy.bestalgo.common.exception.response.ExceptionResponse;
 import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
+import com.ssafy.bestalgo.common.exception.type.DataNotFoundException;
 import com.ssafy.bestalgo.common.exception.type.DuplicatedDataException;
+import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +23,18 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(DuplicatedDataException.class)
     public ResponseEntity<ExceptionResponse> handleDuplicatedDataException(Exception e) {
+        return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.BAD_REQUEST.value(), e.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleDataNotFoundException(Exception e) {
+        return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.BAD_REQUEST.value(), e.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidRequestException(Exception e) {
         return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.BAD_REQUEST.value(), e.getMessage()),
                 HttpStatus.BAD_REQUEST);
     }

@@ -1,52 +1,40 @@
 package com.ssafy.bestalgo.code.dto.response;
 
+import com.ssafy.bestalgo.code.entity.CodeType;
 import java.time.LocalDateTime;
 
 public class CodeResponse {
-    private int id;
-    private String solver;
-    private LocalDateTime createdTime;
-    private String content;
+    private final int id;
+    private final String solver;
+    private final LocalDateTime createdTime;
+    private final String content;
+    private final String type;
+
+    public CodeResponse(int id, String solver, LocalDateTime createdTime, String content, CodeType type) {
+        this.id = id;
+        this.solver = solver;
+        this.createdTime = createdTime;
+        this.content = content;
+        this.type = type.getName();
+    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getSolver() {
         return solver;
     }
 
-    public void setSolver(String solver) {
-        this.solver = solver;
-    }
-
     public LocalDateTime getCreatedTime() {
         return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "CodeResponse{" +
-                "id=" + id +
-                ", solver='" + solver + '\'' +
-                ", createdTime=" + createdTime +
-                ", content='" + content + '\'' +
-                '}';
+    public String getType() {
+        return type;
     }
 }

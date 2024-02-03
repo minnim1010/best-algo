@@ -49,7 +49,7 @@ VALUES (1, 1, 1, 'public class 실습004_SWEA_1208_Flatten {
         bw.flush(); // 비우기
         bw.close(); // 닫기
     }
-}', 'GOOD', 0, '2024-02-02T13:00:00', '2024-02-02T13:00:00'),
+}', 'BEST', 0, '2024-02-02T13:00:00', '2024-02-02T13:00:00'),
        (2, 2, 2, 'public class 실습011_JES_12891_DNA비밀번호 {
     /**
      * sb : StringBuilder

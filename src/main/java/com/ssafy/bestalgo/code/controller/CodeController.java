@@ -5,7 +5,10 @@ import com.ssafy.bestalgo.code.dto.request.CodeDeleteRequest;
 import com.ssafy.bestalgo.code.dto.request.CodeRequest;
 import com.ssafy.bestalgo.code.dto.request.CodeSearchRequest;
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
+import com.ssafy.bestalgo.code.service.CodeService;
+import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,40 +25,51 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/code")
 public class CodeController {
+    private final CodeService codeService;
+
+    @Value("${admin-password}")
+    private String adminPassword;
+    @Value("${algorithm-manager-password}")
+    private String algorithmManagerPassword;
+
+    public CodeController(CodeService codeService) {
+        this.codeService = codeService;
+    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CodeResponse getCode(@ModelAttribute("codeSearchRequest") CodeSearchRequest codeSearchRequest) {
-        // TODO: 2024/02/02 search code
-        return new CodeResponse();
+    public CodeResponse getCode(@ModelAttribute("codeSearchRequest") CodeSearchRequest request) {
+        return codeService.getCode(request);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CodeResponse createCode(@RequestBody @Valid CodeRequest codeRequest) {
-        // TODO: 2024/02/02 create code
-        return new CodeResponse();
+    public CodeResponse createCode(@RequestBody @Valid CodeRequest request) {
+        return codeService.createCode(request);
     }
 
-    @PostMapping("/best")
+    @PostMapping("/type")
     @ResponseStatus(HttpStatus.OK)
-    public void updateBestCode(@RequestParam("problem") int problemId,
-                               @RequestBody @Valid BestCodeUpdateRequest bestCodeUpdateRequest) {
-        // TODO: 2024/02/03 update best code
+    public void updateCodeType(@RequestParam("problem") int problemId,
+                               @RequestBody @Valid BestCodeUpdateRequest request) {
+        String password = request.password();
+        if (!adminPassword.equals(password) && !algorithmManagerPassword.equals(password)) {
+            throw new AuthenticationFailException();
+        }
+        codeService.updateCodeType(problemId, request);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CodeResponse updateCode(@PathVariable("id") int codeId,
-                                   @RequestBody @Valid CodeRequest codeRequest) {
-        // TODO: 2024/02/02 update code
-        return new CodeResponse();
+                                   @RequestBody @Valid CodeRequest request) {
+        return codeService.updateCode(codeId, request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteCode(@PathVariable("id") int codeId,
-                           @RequestBody @Valid CodeDeleteRequest codeDeleteRequest) {
-        // TODO: 2024/02/02 delete code
+                           @RequestBody @Valid CodeDeleteRequest request) {
+        codeService.deleteCode(codeId, request);
     }
 }

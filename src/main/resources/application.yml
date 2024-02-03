@@ -27,4 +27,4 @@ logging:
     root: info
 
 admin-password: ${ADMIN_PASSWORD}
-algorithm-manager-password: ${ALGORITHM_MANGER_PASSWORD}
+algorithm-manager-password: ${ALGORITHM_MANAGER_PASSWORD}
