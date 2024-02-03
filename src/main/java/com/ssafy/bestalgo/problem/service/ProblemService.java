@@ -1,7 +1,10 @@
 package com.ssafy.bestalgo.problem.service;
 
 import com.ssafy.bestalgo.code.dto.response.CodeResponse;
+import com.ssafy.bestalgo.code.entity.CodeType;
+import com.ssafy.bestalgo.common.exception.type.DataNotFoundException;
 import com.ssafy.bestalgo.common.exception.type.DuplicatedDataException;
+import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
 import com.ssafy.bestalgo.problem.dto.persist.ProblemSubmission;
 import com.ssafy.bestalgo.problem.dto.request.ProblemCreateRequest;
 import com.ssafy.bestalgo.problem.dto.response.CodeListResponse;
@@ -63,6 +66,10 @@ public class ProblemService {
     }
 
     public CodeResponse getCodeByType(int problemId, String type) {
-        return null;
+        if (!CodeType.exists(type)) {
+            throw new InvalidRequestException(type + " 코드 타입은 존재하지 않습니다.");
+        }
+        return problemRepository.findByIdAndCodeType(problemId, CodeType.get(type))
+                .orElseThrow(DataNotFoundException::new);
     }
 }

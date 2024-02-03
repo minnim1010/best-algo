@@ -9,6 +9,7 @@ import com.ssafy.bestalgo.code.entity.CodeType;
 import com.ssafy.bestalgo.code.repository.CodeRepository;
 import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
 import com.ssafy.bestalgo.common.exception.type.DataNotFoundException;
+import com.ssafy.bestalgo.common.exception.type.DuplicatedDataException;
 import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
 import com.ssafy.bestalgo.member.entity.Member;
 import com.ssafy.bestalgo.member.repository.MemberRepository;
@@ -36,14 +37,6 @@ public class CodeService {
                 .orElseThrow(DataNotFoundException::new);
     }
 
-    public CodeResponse getCodeByType(String type, int problemId) {
-        if (!CodeType.exists(type)) {
-            throw new InvalidRequestException(type + " 코드 타입은 존재하지 않습니다.");
-        }
-        return codeRepository.findByProblemIdAndType(problemId, CodeType.get(type))
-                .orElseThrow(DataNotFoundException::new);
-    }
-
     @Transactional
     public CodeResponse createCode(int problemId, CodeRequest request) {
         Member member = memberRepository.save(Member.create(request.solver(), request.password()));
@@ -57,8 +50,9 @@ public class CodeService {
 
     @Transactional
     public void updateCodeType(BestCodeUpdateRequest request) {
-        if (!CodeType.exists(request.type())) {
-            throw new InvalidRequestException(request.type() + " 코드 타입은 존재하지 않습니다.");
+        String type = request.type();
+        if (!CodeType.exists(type)) {
+            throw new InvalidRequestException(type + " 코드 타입은 존재하지 않습니다.");
         }
 
         // TODO: 2024/02/03 jpql로 리팩토링 예정
@@ -69,11 +63,11 @@ public class CodeService {
         Code code = codeRepository.findByProblemAndMemberAndIsDeletedFalse(problem, member)
                 .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
 
-        if (!CodeType.exists(request.type())) {
-            throw new InvalidRequestException(request.type() + " 코드 타입은 존재하지 않습니다.");
+        if (problemRepository.existsByIdAndCodeType(problem.getId(), CodeType.get(type))) {
+            throw new DuplicatedDataException(type + " 타입의 코드가 이미 존재합니다.");
         }
 
-        code.updateType(CodeType.get(request.type()));
+        code.updateType(CodeType.get(type));
     }
 
     @Transactional
