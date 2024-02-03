@@ -87,4 +87,8 @@ public class Code extends BaseTimeEntity {
     public boolean getDeleted() {
         return isDeleted;
     }
+
+    public void setDeleted() {
+        this.isDeleted = true;
+    }
 }

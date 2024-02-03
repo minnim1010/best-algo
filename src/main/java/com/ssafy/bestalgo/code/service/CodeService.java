@@ -70,7 +70,7 @@ public class CodeService {
                 .orElseThrow(() -> new DataNotFoundException(request.problem() + "번에 해당하는 문제를 찾을 수 없습니다."));
         Member member = memberRepository.findByName(request.solver())
                 .orElseThrow(() -> new DataNotFoundException(request.solver() + " 풀이자를 찾을 수 없습니다."));
-        Code code = codeRepository.findByProblemAndMember(problem, member)
+        Code code = codeRepository.findByProblemAndMemberAndIsDeletedFalse(problem, member)
                 .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
 
         if (!CodeType.exists(request.type())) {
@@ -82,7 +82,7 @@ public class CodeService {
 
     @Transactional
     public CodeResponse updateCode(int codeId, CodeRequest request) {
-        if (!codeRepository.existsById(codeId)) {
+        if (!codeRepository.existsByIdAndIsDeletedFalse(codeId)) {
             throw new DataNotFoundException("해당 코드를 찾을 수 없습니다.");
         }
 
@@ -91,7 +91,7 @@ public class CodeService {
             throw new AuthenticationFailException();
         }
 
-        Code code = codeRepository.findById(codeId)
+        Code code = codeRepository.findByIdAndIsDeletedFalse(codeId)
                 .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
         code.updateContent(request.code());
 
@@ -100,7 +100,18 @@ public class CodeService {
     }
 
     @Transactional
-    public void deleteCode(int codeId, CodeDeleteRequest codeDeleteRequest) {
-        // TODO: 2024/02/02 delete code
+    public void deleteCode(int codeId, CodeDeleteRequest request) {
+        if (!codeRepository.existsByIdAndIsDeletedFalse(codeId)) {
+            throw new DataNotFoundException("해당 코드를 찾을 수 없습니다.");
+        }
+
+        if (!codeRepository.existsByIdAndSolverNameAndSolverPassword(
+                codeId, request.solver(), request.password())) {
+            throw new AuthenticationFailException();
+        }
+
+        Code code = codeRepository.findByIdAndIsDeletedFalse(codeId)
+                .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
+        code.setDeleted();
     }
 }

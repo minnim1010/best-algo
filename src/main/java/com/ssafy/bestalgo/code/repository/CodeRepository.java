@@ -35,4 +35,10 @@ public interface CodeRepository extends JpaRepository<Code, Integer> {
                 WHERE c.id = :codeId and c.isDeleted = false and m.name = :solverName AND m.password = :solverPassword
             ) AS result""")
     boolean existsByIdAndSolverNameAndSolverPassword(int codeId, String solverName, String solverPassword);
+
+    boolean existsByIdAndIsDeletedFalse(int codeId);
+
+    Optional<Code> findByIdAndIsDeletedFalse(int codeId);
+
+    Optional<Code> findByProblemAndMemberAndIsDeletedFalse(Problem problem, Member member);
 }
