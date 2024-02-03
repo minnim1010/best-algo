@@ -1,8 +1,8 @@
 ### 문제별 코드 목록 조회
-GET http://localhost:8080/api/v1/code?problem=2
+GET http://localhost:8080/api/v1/code?problem=3
 
 ### 코드 상세 조회
-GET http://localhost:8080/api/v1/code/1
+GET http://localhost:8080/api/v1/code/4
 
 ### 문제의 베스트 코드 조회
 GET http://localhost:8080/api/v1/code/best?problem=1

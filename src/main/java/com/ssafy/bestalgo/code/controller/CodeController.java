@@ -41,11 +41,11 @@ public class CodeController {
         return codeService.getCodeListByProblem(problemId);
     }
 
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    public CodeResponse getCode(@ModelAttribute("codeSearchRequest") CodeSearchRequest request) {
-//        return codeService.getCode(request);
-//    }
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CodeResponse getCode(@PathVariable("id") int codeId) {
+        return codeService.getCode(codeId);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

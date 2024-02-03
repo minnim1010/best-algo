@@ -40,6 +40,11 @@ public class CodeService {
         return new ProblemSolvedCodeListResponse(codeListResponse);
     }
 
+    public CodeResponse getCode(int codeId) {
+        return codeRepository.findById(codeId)
+                .orElseThrow(DataNotFoundException::new);
+    }
+
     public CodeResponse getCode(CodeSearchRequest request) {
         if (request.type() != null) {
             return getCodeByType(request);
