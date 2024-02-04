@@ -15,6 +15,7 @@ import com.ssafy.bestalgo.member.entity.Member;
 import com.ssafy.bestalgo.member.repository.MemberRepository;
 import com.ssafy.bestalgo.problem.entity.Problem;
 import com.ssafy.bestalgo.problem.repository.ProblemRepository;
+import com.ssafy.bestalgo.util.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +40,8 @@ public class CodeService {
 
     @Transactional
     public CodeResponse createCode(int problemId, CodeRequest request) {
-        Member member = memberRepository.save(Member.create(request.solver(), request.password()));
+        Member member = memberRepository.save(
+                Member.create(request.solver(), PasswordEncoder.encode(request.password())));
         Problem problem = problemRepository.findById(problemId)
                 .orElseThrow(() -> new DataNotFoundException(problemId + "번에 해당하는 문제가 존재하지 않습니다."));
 
@@ -76,7 +78,7 @@ public class CodeService {
         }
 
         if (!codeRepository.existsByIdAndSolverNameAndSolverPassword(
-                codeId, request.solver(), request.password())) {
+                codeId, request.solver(), PasswordEncoder.encode(request.password()))) {
             throw new AuthenticationFailException();
         }
 
@@ -95,7 +97,7 @@ public class CodeService {
         }
 
         if (!codeRepository.existsByIdAndSolverNameAndSolverPassword(
-                codeId, request.solver(), request.password())) {
+                codeId, request.solver(), PasswordEncoder.encode(request.password()))) {
             throw new AuthenticationFailException();
         }
 
