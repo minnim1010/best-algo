@@ -180,5 +180,6 @@ src/test/resources/privacy.yml
 bestalgo.iml
 .idea/
 log/
+script.sql
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,gradle,intellij

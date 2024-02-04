@@ -38,11 +38,6 @@ public class ProblemService {
         return convertProblemListResponse(problemSubmissions);
     }
 
-    public ProblemSolvedCodeListResponse getCodeListByProblem(int problemId) {
-        List<CodeListResponse> codeListResponse = problemRepository.findCodesById(problemId);
-        return new ProblemSolvedCodeListResponse(codeListResponse);
-    }
-
     private ProblemListResponse convertProblemListResponse(List<ProblemSubmission> problemSubmissions) {
         List<Map<String, Object>> collect = problemSubmissions.stream()
                 .collect(Collectors.groupingBy(ProblemSubmission::date))
@@ -55,6 +50,11 @@ public class ProblemService {
                 .toList();
 
         return new ProblemListResponse(collect);
+    }
+
+    public ProblemSolvedCodeListResponse getCodeListByProblem(int problemId) {
+        List<CodeListResponse> codeListResponse = problemRepository.findCodesById(problemId);
+        return new ProblemSolvedCodeListResponse(codeListResponse);
     }
 
     @Transactional

@@ -28,6 +28,4 @@ public interface ProblemRepository extends JpaRepository<Problem, Integer> {
             GROUP BY p.category, p.name, p.id"""
     )
     List<ProblemSubmission> findAllWithSubmissionCount();
-
-
 }
