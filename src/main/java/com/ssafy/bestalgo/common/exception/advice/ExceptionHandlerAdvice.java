@@ -64,8 +64,8 @@ public class ExceptionHandlerAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse> handleException(Exception e) {
-        return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()),
+    public ResponseEntity<ExceptionResponse> handleException() {
+        return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), "에러가 발생했습니다."),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
