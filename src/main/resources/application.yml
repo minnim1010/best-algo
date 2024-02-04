@@ -13,5 +13,14 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
+logging:
+  file:
+    path: ${user.dir}/log
+    name: ${user.dir}/log/bestalgo
+  level:
+    root: info
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] %-5level %logger{36}.%M - %msg%n"
+
 admin-password: ${ADMIN_PASSWORD}
 algorithm-manager-password: ${ALGORITHM_MANAGER_PASSWORD}
