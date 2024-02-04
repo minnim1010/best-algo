@@ -18,14 +18,13 @@ public interface ProblemRepository extends JpaRepository<Problem, Integer> {
             WHERE c.problem.id = :problemId and c.isDeleted = false""")
     List<CodeListResponse> findCodesById(@Param("problemId") Integer problemId);
 
-
     @Query("""
             SELECT NEW com.ssafy.bestalgo.problem.dto.persist.ProblemSubmission(
-            p.id, p.name, COUNT(c.id), p.category)
+            p.id, p.name, p.category, COUNT(CASE WHEN c.isDeleted = false then 1 ELSE NULL END))
             FROM Problem p
             LEFT JOIN p.codes c
-            WHERE c.isDeleted = false or c.isDeleted is null
-            GROUP BY p.category, p.name, p.id"""
+            GROUP BY p.category, p.name, p.id
+            order by p.category"""
     )
     List<ProblemSubmission> findAllWithSubmissionCount();
 }

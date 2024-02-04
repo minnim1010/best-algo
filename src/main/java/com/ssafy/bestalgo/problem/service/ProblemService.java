@@ -34,7 +34,6 @@ public class ProblemService {
 
     public ProblemListResponse getProblemList() {
         List<ProblemSubmission> problemSubmissions = problemRepository.findAllWithSubmissionCount();
-
         return convertProblemListResponse(problemSubmissions);
     }
 
@@ -42,11 +41,12 @@ public class ProblemService {
         List<Map<String, Object>> collect = problemSubmissions.stream()
                 .collect(Collectors.groupingBy(ProblemSubmission::date))
                 .entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
                 .map(entry ->
-                        Map.of("problems", entry.getValue().stream()
-                                        .map(ProblemSubmission::toMap)
-                                        .toList(),
-                                "date", entry.getKey()))
+                        Map.of("date", entry.getKey(),
+                                "problems", entry.getValue().stream()
+                                        .map(ProblemSubmission::toResponse)
+                                        .toList()))
                 .toList();
 
         return new ProblemListResponse(collect);

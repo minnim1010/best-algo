@@ -1,14 +1,11 @@
 package com.ssafy.bestalgo.problem.dto.persist;
 
-import java.util.Map;
+public record ProblemSubmission(int id, String name, String date, Long submissions) {
 
-public record ProblemSubmission(int id, String name, Long submissions, String date) {
+    public ProblemSubmissionResponse toResponse() {
+        return new ProblemSubmissionResponse(id, name, submissions);
+    }
 
-    public Map<String, Object> toMap() {
-        return Map.of(
-                "id", this.id,
-                "name", this.name,
-                "submissions", this.submissions
-        );
+    public record ProblemSubmissionResponse(int id, String name, Long submissions) {
     }
 }

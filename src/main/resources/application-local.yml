@@ -5,16 +5,16 @@ spring:
     import: classpath:privacy.yml
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: create
-    defer-datasource-initialization: true
+    #    hibernate:
+    #      ddl-auto: create
+    #    defer-datasource-initialization: true
     properties:
       hibernate:
         format_sql: true
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath:sql/data.sql
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath:sql/data.sql
 
 logging:
   file:
