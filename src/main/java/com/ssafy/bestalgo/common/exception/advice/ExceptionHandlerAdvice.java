@@ -2,6 +2,7 @@ package com.ssafy.bestalgo.common.exception.advice;
 
 import com.ssafy.bestalgo.common.exception.response.ExceptionResponse;
 import com.ssafy.bestalgo.common.exception.type.AuthenticationFailException;
+import com.ssafy.bestalgo.common.exception.type.DataNotExistsYetException;
 import com.ssafy.bestalgo.common.exception.type.DataNotFoundException;
 import com.ssafy.bestalgo.common.exception.type.DuplicatedDataException;
 import com.ssafy.bestalgo.common.exception.type.InvalidRequestException;
@@ -41,6 +42,12 @@ public class ExceptionHandlerAdvice {
     public ResponseEntity<ExceptionResponse> handleInvalidRequestException(Exception e) {
         return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.BAD_REQUEST.value(), e.getMessage()),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataNotExistsYetException.class)
+    public ResponseEntity<ExceptionResponse> handleDataNotExistsYetException(Exception e) {
+        return new ResponseEntity<>(ExceptionResponse.of(HttpStatus.NO_CONTENT.value(), e.getMessage()),
+                HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

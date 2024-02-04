@@ -5,7 +5,7 @@ GET http://localhost:8080/api/v1/problems
 GET http://localhost:8080/api/v1/problems/3/codes
 
 ### 문제의 타입별 코드 조회
-GET http://localhost:8080/api/v1/problems/1/good
+GET http://localhost:8080/api/v1/problems/3/novel
 
 ### 문제 추가
 POST http://localhost:8080/api/v1/problems

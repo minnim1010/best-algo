@@ -47,7 +47,7 @@ public class ProblemController {
     @ResponseStatus(HttpStatus.OK)
     public CodeResponse getCodeByType(@PathVariable("id") int problemId,
                                       @PathVariable("type") String type) {
-        if (!type.equals("best") && !type.equals("novel")) {
+        if (!"best".equals(type) && !"novel".equals(type)) {
             throw new InvalidRequestException();
         }
 
@@ -56,11 +56,11 @@ public class ProblemController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProblemCreateResponse createProblem(@RequestBody @Valid ProblemCreateRequest problemCreateRequest) {
-        if (!adminPassword.equals(problemCreateRequest.password())) {
+    public ProblemCreateResponse createProblem(@RequestBody @Valid ProblemCreateRequest request) {
+        if (!adminPassword.equals(request.password())) {
             throw new AuthenticationFailException();
         }
 
-        return problemService.createProblem(problemCreateRequest);
+        return problemService.createProblem(request);
     }
 }
