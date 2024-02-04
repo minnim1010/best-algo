@@ -63,7 +63,7 @@ public class ProblemService {
             Problem save = problemRepository.save(Problem.create(request.name(), request.date()));
             return new ProblemCreateResponse(save.getId(), save.getName(), save.getCategory());
         } catch (DataIntegrityViolationException e) {
-            throw new DuplicatedDataException();
+            throw new DuplicatedDataException("문제가 이미 존재합니다.", e);
         }
     }
 

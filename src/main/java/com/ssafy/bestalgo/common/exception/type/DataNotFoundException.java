@@ -9,4 +9,8 @@ public class DataNotFoundException extends BestAlgoException {
     public DataNotFoundException(String message) {
         super(message);
     }
+
+    public DataNotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

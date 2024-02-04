@@ -9,4 +9,8 @@ public class DataNotExistsYetException extends BestAlgoException {
     public DataNotExistsYetException(String message) {
         super(message);
     }
+
+    public DataNotExistsYetException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

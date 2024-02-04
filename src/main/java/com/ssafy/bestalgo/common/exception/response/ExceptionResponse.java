@@ -1,11 +1,8 @@
 package com.ssafy.bestalgo.common.exception.response;
 
 public class ExceptionResponse {
-    private int status;
-    private String message;
-
-    public ExceptionResponse() {
-    }
+    private final int status;
+    private final String message;
 
     private ExceptionResponse(int status, String message) {
         this.status = status;

@@ -9,4 +9,8 @@ public class AuthenticationFailException extends BestAlgoException {
     public AuthenticationFailException(String message) {
         super(message);
     }
+
+    public AuthenticationFailException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

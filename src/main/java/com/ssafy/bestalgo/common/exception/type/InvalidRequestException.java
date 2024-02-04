@@ -9,4 +9,8 @@ public class InvalidRequestException extends BestAlgoException {
     public InvalidRequestException(String message) {
         super(message);
     }
+
+    public InvalidRequestException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

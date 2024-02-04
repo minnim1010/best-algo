@@ -9,4 +9,8 @@ public class DuplicatedDataException extends BestAlgoException {
     public DuplicatedDataException(String message) {
         super(message);
     }
+
+    public DuplicatedDataException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
