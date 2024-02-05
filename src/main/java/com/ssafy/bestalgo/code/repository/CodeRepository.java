@@ -39,6 +39,8 @@ public interface CodeRepository extends JpaRepository<Code, Integer> {
             WHERE c.problem.id = :problemId and c.type = :type and c.isDeleted = false""")
     Optional<CodeResponse> findByIdAndCodeType(int problemId, CodeType type);
 
+    Optional<Code> findByProblemIdAndTypeAndIsDeletedFalse(int problemId, CodeType type);
+
     @Query("""
             SELECT EXISTS (
                 SELECT 1
