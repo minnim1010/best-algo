@@ -17,5 +17,8 @@ spring:
 #      schema-locations: classpath:sql/data.sql
 
 logging:
+  file:
+    path: ${user.dir}/log
+    name: ${user.dir}/log/bestalgo
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] %highlight(%-5level) %cyan(%logger{36}.%M) - %msg%n"

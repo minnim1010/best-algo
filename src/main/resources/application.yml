@@ -14,9 +14,6 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 
 logging:
-  file:
-    path: ${user.dir}/log
-    name: ${user.dir}/log/bestalgo
   level:
     root: info
   pattern:
