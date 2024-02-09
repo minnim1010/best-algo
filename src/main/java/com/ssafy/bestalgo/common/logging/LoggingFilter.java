@@ -27,23 +27,23 @@ public class LoggingFilter extends OncePerRequestFilter {
         log.info("Request : {} uri=[{}] content-type=[{}]", request.getMethod(),
                 queryString == null ? request.getRequestURI() : request.getRequestURI() + queryString,
                 request.getContentType());
-        logPayload("Request", request.getContentType(), request.getInputStream());
+        logRequestPayload(request.getContentType(), request.getInputStream());
     }
 
-    private static void logResponse(ContentCachingResponseWrapper response) throws IOException {
-        logPayload("Response", response.getContentType(), response.getContentInputStream());
+    private static void logResponse(ContentCachingResponseWrapper response, long elapsedTime) {
+        log.info("Response : status=[{}] elapsed time=[{}ms]", response.getStatus(), elapsedTime);
     }
 
-    private static void logPayload(String prefix, String contentType, InputStream inputStream) throws IOException {
+    private static void logRequestPayload(String contentType, InputStream inputStream) throws IOException {
         boolean visible = isVisible(MediaType.valueOf(contentType == null ? "application/json" : contentType));
         if (visible) {
             byte[] content = StreamUtils.copyToByteArray(inputStream);
             if (content.length > 0) {
                 String contentString = new String(content);
-                log.info("{} Payload: {}", prefix, contentString);
+                log.info("{} Payload: {}", "Request", contentString);
             }
         } else {
-            log.info("{} Payload: Binary Content", prefix);
+            log.info("{} Payload: Binary Content", "Request");
         }
     }
 
@@ -69,11 +69,12 @@ public class LoggingFilter extends OncePerRequestFilter {
 
     protected void doFilterWrapped(RequestWrapper request, ContentCachingResponseWrapper response,
                                    FilterChain filterChain) throws ServletException, IOException {
+        long start = System.currentTimeMillis();
         try {
             logRequest(request);
             filterChain.doFilter(request, response);
         } finally {
-            logResponse(response);
+            logResponse(response, System.currentTimeMillis() - start);
             response.copyBodyToResponse();
         }
     }
