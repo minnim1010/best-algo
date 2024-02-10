@@ -14,6 +14,7 @@ import com.ssafy.bestalgo.domain.problem.repository.ProblemRepository;
 import com.ssafy.bestalgo.global.exception.type.DataNotExistsYetException;
 import com.ssafy.bestalgo.global.exception.type.DuplicatedDataException;
 import com.ssafy.bestalgo.global.exception.type.InvalidRequestException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,7 +42,7 @@ public class ProblemService {
         List<Map<String, Object>> collect = problemSubmissions.stream()
                 .collect(Collectors.groupingBy(ProblemSubmission::date))
                 .entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
+                .sorted(Map.Entry.comparingByKey(Collections.reverseOrder()))
                 .map(entry ->
                         Map.of("date", entry.getKey(),
                                 "problems", entry.getValue().stream()
