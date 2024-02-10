@@ -2,12 +2,13 @@ package com.ssafy.bestalgo.code.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.ssafy.bestalgo.code.entity.Code;
-import com.ssafy.bestalgo.code.entity.CodeType;
-import com.ssafy.bestalgo.member.entity.Member;
-import com.ssafy.bestalgo.member.repository.MemberRepository;
-import com.ssafy.bestalgo.problem.entity.Problem;
-import com.ssafy.bestalgo.problem.repository.ProblemRepository;
+import com.ssafy.bestalgo.domain.code.entity.Code;
+import com.ssafy.bestalgo.domain.code.entity.CodeType;
+import com.ssafy.bestalgo.domain.code.repository.CodeRepository;
+import com.ssafy.bestalgo.domain.member.entity.Member;
+import com.ssafy.bestalgo.domain.member.repository.MemberRepository;
+import com.ssafy.bestalgo.domain.problem.entity.Problem;
+import com.ssafy.bestalgo.domain.problem.repository.ProblemRepository;
 import java.util.List;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
