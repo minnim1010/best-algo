@@ -34,7 +34,7 @@ public class ProblemService {
     }
 
     public ProblemListResponse getProblemList() {
-        List<ProblemSubmission> problemSubmissions = problemRepository.findAllWithSubmissionCount();
+        List<ProblemSubmission> problemSubmissions = problemRepository.getResponseAllWithSubmissionCount();
         return convertProblemListResponse(problemSubmissions);
     }
 
@@ -54,7 +54,7 @@ public class ProblemService {
     }
 
     public ProblemSolvedCodeListResponse getCodeListByProblem(int problemId) {
-        List<CodeListResponse> codeListResponse = codeRepository.findCodesByProblemId(problemId);
+        List<CodeListResponse> codeListResponse = codeRepository.getResponseAllByProblemId(problemId);
         return new ProblemSolvedCodeListResponse(codeListResponse);
     }
 
@@ -72,7 +72,7 @@ public class ProblemService {
         if (!CodeType.exists(type)) {
             throw new InvalidRequestException(type + " 코드 타입은 존재하지 않습니다.");
         }
-        return codeRepository.findByIdAndCodeType(problemId, CodeType.get(type))
+        return codeRepository.getResponseByIdAndCodeType(problemId, CodeType.get(type))
                 .orElseThrow(DataNotExistsYetException::new);
     }
 }

@@ -55,15 +55,15 @@ public class CodeService {
         if (!CodeType.exists(type)) {
             throw new InvalidRequestException(type + " 코드 타입은 존재하지 않습니다.");
         }
-        
+
         if (!problemRepository.existsById(request.problem())) {
             throw new DataNotFoundException(request.problem() + "번에 해당하는 문제를 찾을 수 없습니다.");
         }
         Code code = codeRepository.findByIdAndIsDeletedFalse(request.code())
                 .orElseThrow(() -> new DataNotFoundException("해당 코드를 찾을 수 없습니다."));
 
-        codeRepository.findByProblemIdAndTypeAndIsDeletedFalse(request.problem(),
-                CodeType.get(type)).ifPresent(c -> c.updateType(CodeType.GOOD));
+        codeRepository.findByProblemIdAndTypeAndIsDeletedFalse(request.problem(), CodeType.get(type))
+                .ifPresent(c -> c.updateType(CodeType.GOOD));
 
         code.updateType(CodeType.get(type));
     }

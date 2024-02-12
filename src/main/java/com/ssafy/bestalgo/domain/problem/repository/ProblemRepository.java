@@ -16,5 +16,5 @@ public interface ProblemRepository extends JpaRepository<Problem, Integer> {
             GROUP BY p.category, p.name, p.id
             order by p.category"""
     )
-    List<ProblemSubmission> findAllWithSubmissionCount();
+    List<ProblemSubmission> getResponseAllWithSubmissionCount();
 }

@@ -18,7 +18,7 @@ public interface CodeRepository extends JpaRepository<Code, Integer> {
             FROM Code c
             JOIN c.member m
             WHERE c.problem.id = :problemId and c.isDeleted = false""")
-    List<CodeListResponse> findCodesByProblemId(@Param("problemId") Integer problemId);
+    List<CodeListResponse> getResponseAllByProblemId(@Param("problemId") Integer problemId);
 
     @Query("""
             SELECT NEW com.ssafy.bestalgo.domain.code.dto.response.CodeResponse(
@@ -48,15 +48,7 @@ public interface CodeRepository extends JpaRepository<Code, Integer> {
             FROM Code c
             JOIN c.member m
             WHERE c.problem.id = :problemId and c.type = :type and c.isDeleted = false""")
-    Optional<CodeResponse> findByIdAndCodeType(int problemId, CodeType type);
+    Optional<CodeResponse> getResponseByIdAndCodeType(int problemId, CodeType type);
 
     Optional<Code> findByProblemIdAndTypeAndIsDeletedFalse(int problemId, CodeType type);
-
-    @Query("""
-            SELECT EXISTS (
-                SELECT 1
-                FROM Code c
-                WHERE c.problem.id = :problemId and c.type = :type and c.isDeleted = false
-            ) AS result""")
-    boolean existsByIdAndCodeType(int problemId, CodeType type);
 }
