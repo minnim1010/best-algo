@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -42,10 +41,15 @@ public class Code extends BaseTimeEntity {
     @NotNull
     private boolean isDeleted;
 
-    public Code() {
+    protected Code() {
     }
 
     private Code(Member member, Problem problem, String content, CodeType type) {
+        Codes.checkMemberNotNull(member);
+        Codes.checkProblemNotNull(problem);
+        Codes.checkValidContent(content);
+        Codes.checkValidCodeType(type);
+
         this.member = member;
         this.problem = problem;
         this.content = content;
@@ -72,7 +76,9 @@ public class Code extends BaseTimeEntity {
         return content;
     }
 
-    public void updateContent(@NotBlank String content) {
+    public void updateContent(String content) {
+        Codes.checkValidContent(content);
+
         this.content = content;
     }
 
@@ -80,7 +86,9 @@ public class Code extends BaseTimeEntity {
         return type;
     }
 
-    public void updateType(@NotNull CodeType type) {
+    public void updateType(CodeType type) {
+        Codes.checkValidCodeType(type);
+
         this.type = type;
     }
 

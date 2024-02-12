@@ -18,11 +18,13 @@ public class Member {
     @NotNull
     private String password;
 
-    public Member() {
-
+    protected Member() {
     }
 
     private Member(String name, String password) {
+        Members.checkValidName(name);
+        Members.checkValidPassword(password);
+
         this.name = name;
         this.password = password;
     }

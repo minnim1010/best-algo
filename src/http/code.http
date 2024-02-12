@@ -1,8 +1,8 @@
 ### 코드 상세 조회
-GET http://localhost:8080/api/v1/codes/1
+GET http://localhost:8080/api/v1/codes/64
 
 ### 코드 작성
-POST http://localhost:8080/api/v1/codes?problem=4
+POST http://localhost:8080/api/v1/codes?problem=1
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### 코드 수정
-PATCH http://localhost:8080/api/v1/codes/9
+PATCH http://localhost:8080/api/v1/codes/64
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ### 코드 삭제
-DELETE http://localhost:8080/api/v1/codes/9
+DELETE http://localhost:8080/api/v1/codes/64
 Content-Type: application/json
 
 {
@@ -35,8 +35,8 @@ POST http://localhost:8080/api/v1/codes/type
 Content-Type: application/json
 
 {
-  "problem": 16,
-  "code": 4,
+  "problem": 1,
+  "code": 65,
   "type": "best",
   "password": "aP7mS3zX#2L8oQ9wE4y&"
 }

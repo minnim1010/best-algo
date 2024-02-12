@@ -26,10 +26,13 @@ public class Problem {
     @OneToMany(mappedBy = "problem")
     private List<Code> codes;
 
-    public Problem() {
+    protected Problem() {
     }
 
     private Problem(String name, String category) {
+        Problems.checkValidName(name);
+        Problems.checkValidCategory(category);
+
         this.name = name;
         this.category = category;
     }
