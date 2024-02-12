@@ -54,7 +54,7 @@ public class ProblemService {
     }
 
     public ProblemSolvedCodeListResponse getCodeListByProblem(int problemId) {
-        List<CodeListResponse> codeListResponse = problemRepository.findCodesById(problemId);
+        List<CodeListResponse> codeListResponse = codeRepository.findCodesByProblemId(problemId);
         return new ProblemSolvedCodeListResponse(codeListResponse);
     }
 
